@@ -11,13 +11,17 @@ on:
       - 'changelog/**'
 jobs:
   scan-repo:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
+      - run: touch starting_scan-repo_Checkoutcode_16
       - name: Check out code
         uses: actions/checkout@v2
+      - run: touch starting_scan-repo_InstallFossaCLI_18
       - name: Install Fossa CLI
         run: |
           curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install-latest.sh | bash -s -- -b .
+      - run: touch starting_scan-repo_Scanfordependenciesandlicenses_21
       - name: Scan for dependencies and licenses
         run: |
           FOSSA_API_KEY=${{ secrets.FOSSA_PUSH_ONLY_API_KEY }} ./fossa analyze
+
